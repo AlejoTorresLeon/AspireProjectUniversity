@@ -1,0 +1,155 @@
+﻿@page "/weather"
+@rendermode InteractiveServer 
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 5)]
+@inject IHttpClientFactory ClientFactory
+
+
+
+
+
+@using System.Net.Http.Json
+
+<h1>Consulta de Datos</h1>
+
+<p>Selecciona un tipo de dato para consultar:</p>
+
+<div class="row g-2 mb-3 align-items-center">
+    <div class="col-auto">
+        <select class="form-select" @onchange="OnSelectChanged">
+            <option value="">-- Selecciona --</option>
+            <option value="weatherforecast">Weather Forecast</option>
+            <option value="departamentos">Departamentos</option>
+            <option value="ciudades">Ciudades</option>
+            <option value="presidentes">Presidentes</option>
+            <option value="atracciones">Atracciones</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary"
+                @onclick="ConsultarDatos"
+                disabled="@(!canConsultar || loading)">
+            @(loading ? "Cargando..." : "Consultar")
+        </button>
+    </div>
+</div>
+
+@if (!loading && tableHeaders?.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                @foreach (var header in tableHeaders)
+                {
+                    <th>@header</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in data)
+            {
+                <tr>
+                    @foreach (var field in item)
+                    {
+                        <td>@field</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private string? selectedEndpoint;
+    private bool canConsultar = false;
+    private bool loading = false;
+
+    private List<string[]> data = new();
+    private List<string> tableHeaders = new();
+    private HttpClient Http => ClientFactory.CreateClient("ApiService");
+
+
+
+    private void OnSelectChanged(ChangeEventArgs e)
+    {
+
+
+        selectedEndpoint = e.Value?.ToString();
+        canConsultar = !string.IsNullOrWhiteSpace(selectedEndpoint);
+    }
+
+    private async Task ConsultarDatos()
+    {
+        if (string.IsNullOrWhiteSpace(selectedEndpoint))
+            return;
+
+        loading = true;
+        canConsultar = false;
+        tableHeaders.Clear();
+        data.Clear();
+        StateHasChanged();
+
+        try
+        {
+            switch (selectedEndpoint)
+            {
+                case "weatherforecast":
+                     var weather = await Http.GetFromJsonAsync<List<WeatherForecast>>("/weatherforecast");
+                    
+                    tableHeaders = ["Date", "Temp (C)", "Temp (F)", "Summary"];
+                    data = weather?.Select(w => new[] {
+                        w.Date.ToShortDateString(),
+                        w.TemperatureC.ToString(),
+                        w.TemperatureF.ToString(),
+                        w.Summary ?? ""
+                    }).ToList() ?? new();
+                    break;
+
+                case "departamentos":
+                    var departamentos = await Http.GetFromJsonAsync<List<Departamentos>>("/departamentos");
+                    tableHeaders = ["Id", "Name", "Description"];
+                    data = departamentos?.Select(d => new[] {
+                        d.Id.ToString(), d.Name ?? "", d.Description ?? ""
+                    }).ToList() ?? new();
+                    break;
+
+                case "ciudades":
+                    var ciudades = await Http.GetFromJsonAsync<List<Ciudad>>("/ciudades");
+                    tableHeaders = ["Id", "Name", "Description"];
+                    data = ciudades?.Select(c => new[] {
+                        c.Id.ToString(), c.Name ?? "", c.Description ?? ""
+                    }).ToList() ?? new();
+                    break;
+
+                case "presidentes":
+                    var presidentes = await Http.GetFromJsonAsync<List<Presidente>>("/presidentes");
+                    tableHeaders = ["Id", "Full Name", "Image URL", "Description"];
+                    data = presidentes?.Select(p => new[] {
+                        p.Id.ToString(), p.FullName, p.UrlImage ?? "", p.Description ?? ""
+                    }).ToList() ?? new();
+                    break;
+
+                case "atracciones":
+                    var atracciones = await Http.GetFromJsonAsync<List<Atracion>>("/atracciones");
+                    tableHeaders = ["Id", "Name", "Description"];
+                    data = atracciones?.Select(a => new[] {
+                        a.Id.ToString(), a.Name ?? "", a.Description ?? ""
+                    }).ToList() ?? new();
+                    break;
+            }
+        }
+        finally
+        {
+            loading = false;
+            canConsultar = !string.IsNullOrWhiteSpace(selectedEndpoint);
+            StateHasChanged();
+        }
+    }
+
+    // Records utilizados
+    public record WeatherForecast(DateOnly Date, int TemperatureC, int TemperatureF, string? Summary);
+    public record Departamentos(int Id, string? Name, string? Description);
+    public record Ciudad(int Id, string? Name, string? Description);
+    public record Presidente(int Id, string FullName, string? UrlImage, string? Description);
+    public record Atracion(int Id, string? Name, string? Description);
+}
