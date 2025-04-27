@@ -8,19 +8,19 @@ El proyecto está diseñado para ser fácilmente escalable, mantener una alta se
 La solución se basa en los siguientes componentes:
 
 - **Microservices**: Tres microservicios independientes que manejan funcionalidades específicas.
-- **API Gateway**: Un único punto de entrada para todas las peticiones externas, que enruta a los microservicios correspondientes.
-- **Frontend Web**: Aplicación web que consume servicios a través del API Gateway.
-- **App Mobile**: Aplicación móvil que consume los mismos servicios a través del API Gateway.
+- **API Gateway**: Un único punto de entrada para todas las peticiones externas, que enruta a los microservicios correspondientes. (No incluido en el proyecto)
+- **Frontend Web**: Aplicación web que consume servicios a través del API Gateway. 
+- **App Mobile**: Aplicación móvil que consume los mismos servicios a través del API Gateway. (No incluido en el proyecto)
 - **Aspire Observabilidad Multicanal**: Plataforma de monitoreo, observabilidad y trazabilidad de todos los componentes del sistema.
 
 ## 📦 Tecnologías Utilizadas
 
 - **.NET Aspire** para monitoreo y telemetría.
-- **.NET 8/9** (dependiendo del servicio) para el desarrollo de microservicios.
-- **Dapr** (opcional) para comunicación entre servicios (futuro).
-- **YARP** para la implementación del API Gateway.
+- **.NET 9** (dependiendo del servicio) para el desarrollo de microservicios.
+- **Dapr** (opcional) para comunicación entre servicios (futuro). (No incluido en el proyecto)
+- **Ocelot** para la implementación del API Gateway. (No incluido en el proyecto)
 - **Blazor** para el Frontend Web.
-- **.NET MAUI** para la App Mobile.
+- **.NET MAUI** para la App Mobile. (No incluido en el proyecto)
 
 ## 🚀 Objetivos del Proyecto
 
@@ -34,7 +34,7 @@ La solución se basa en los siguientes componentes:
 
 ### Prerrequisitos
 
-- .NET SDK 8.0 o superior
+- .NET SDK 9.0 o superior
 - Docker (opcional para infraestructura de observabilidad)
 - Visual Studio 2022 / Rider / VS Code
 
