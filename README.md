@@ -44,3 +44,7 @@ La solución se basa en los siguientes componentes:
    ```bash
    git clone https://github.com/AlejoTorresLeon/AspireProjectUniversity.git
    cd AspireProjectUniversity
+
+## 🎬 Video Explicacion
+
+[🎥 Descargar Video](https://github.com/AlejoTorresLeon/AspireProjectUniversity/releases/download/university/Universidad.Video.mkv)
