@@ -47,4 +47,4 @@ La solución se basa en los siguientes componentes:
 
 ## 🎬 Video Explicacion
 
-[🎥 Descargar Video](https://github.com/AlejoTorresLeon/AspireProjectUniversity/releases/download/university/Universidad.Video.mkv)
+[🎥 Ver Video](https://drive.google.com/file/d/1XFV3FJBYWXg1ENDfIPNSSDwjHnr8bdD7/view?usp=sharing)
