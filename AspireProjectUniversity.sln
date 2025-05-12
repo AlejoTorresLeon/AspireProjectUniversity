@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.35821.62 d17.14
+VisualStudioVersion = 17.14.35821.62
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireProjectUniversity.AppHost", "AspireProjectUniversity.AppHost\AspireProjectUniversity.AppHost.csproj", "{808C39B5-E962-471E-8A9E-781AE5BA6388}"
 EndProject
@@ -9,6 +9,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireProjectUniversity.ApiService", "AspireProjectUniversity.ApiService\AspireProjectUniversity.ApiService.csproj", "{80CF27A2-E73D-388D-C3E8-2EC65357FC39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireProjectUniversity.Web", "AspireProjectUniversity.Web\AspireProjectUniversity.Web.csproj", "{FB2FFDE5-58F9-9A45-1262-89CC2033C6FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerCompose", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

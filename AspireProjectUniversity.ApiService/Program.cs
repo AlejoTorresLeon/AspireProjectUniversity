@@ -1,3 +1,4 @@
+using Prometheus;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -116,6 +117,8 @@ app.MapGet("/atracciones", async () =>
 
 
 app.MapDefaultEndpoints();
+app.UseMetricServer(); // expone /metrics
+app.UseHttpMetrics();
 
 app.Run();
 
